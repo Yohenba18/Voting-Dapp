@@ -27,10 +27,10 @@ const App = () => {
   //all the UI 
   // input value
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
+  const [chooseid, setChooseid] = useState('');
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const handleChange = (e) => {
+    setChooseid(e.target.value);
   };
   const [refresh, setrefresh] = useState(0);
   //input value
@@ -44,6 +44,7 @@ const App = () => {
 
   //states related to electioncontract
   const [voted, setVoted] = useState(false);
+  const [showlead, setShowLead] = useState(false);
 
   
 
@@ -146,7 +147,7 @@ const App = () => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
+          value={chooseid}
           onChange={handleChange}
         >
           <MenuItem value={1}>1</MenuItem>
@@ -154,7 +155,7 @@ const App = () => {
           <MenuItem value={3}>3</MenuItem>
         </Select>
       </FormControl>
-      <Button variant="contained" onClick={() => { alert(age) }}>VOTE</Button>
+      <Button variant="contained" onClick={() => {setVoted(!voted); alert(chooseid)}}>VOTE</Button>
         </div>
         <div className="after_voting">
           {voted && (<h6>THANK YOU FOR YOUR VOTE</h6>)}
@@ -163,7 +164,18 @@ const App = () => {
           <h4>Your Address: {account}</h4>
         </div>
         <hr className="news1"/>
-
+        <div className="lead_title">
+          <h4>FIND THE LEADING CANDIDATE</h4>
+          <Button variant="contained" onClick={() => {setShowLead(!showlead)}}>LEADING</Button>
+        </div>
+        {showlead &&(<div className="leader_details">
+        <p>Name: Demo Name</p>
+        <p>Votes: Demo Votes</p>
+        </div>)}
+      
+        <div className="footer">
+            <h4>Made by Yohenba Kshetrimayum</h4>
+        </div>
         {/*<main role="main" class="container">
           <div class="jumbotron">
             <h1>Project</h1>

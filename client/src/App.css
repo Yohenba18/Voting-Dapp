@@ -19,9 +19,15 @@
     font-weight: normal;
 }
 
+.app .lead_title > h4{
+    font-size: 14px !important;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
 .app .showinguser_address {
     display: flex;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
     /* border-bottom: 2px; */
 }
 
@@ -30,6 +36,7 @@
     color: lightgray;
     background-color: lightgray;
     width:80%;
+    margin-top:2px;
 }
 .table{
     display: flex;
@@ -51,3 +58,24 @@
     color: white;
     text-decoration: none;
 }
+.app .lead_title{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.app .lead_title button{
+    background-color: #F70103;
+    color: white;
+    width: 50%;
+}
+
+.app .leader_details{
+    margin-top: 10px;
+}
+.app .footer{
+    position: fixed;
+   bottom: 0;
+   font-size: 20px;
+
+}
+
