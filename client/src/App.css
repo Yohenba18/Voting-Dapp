@@ -1,0 +1,17 @@
+.app{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.table{
+    display: flex;
+    width: 550.5;
+    justify-content: center;
+    margin-top: 13.5px;
+}
+h3{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px !important;
+    font-weight:lighter;
+}
