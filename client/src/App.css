@@ -4,14 +4,50 @@
     flex-direction: column;
 }
 
+.app .do_vote > h3{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px !important ;
+    font-weight:lighter;
+}
+
+.app .after_voting > h6{
+    font-size: 12px !important;
+}
+
+.app .showinguser_address > h4{
+    font-size: 18px !important;
+    font-weight: normal;
+}
+
+.app .showinguser_address {
+    display: flex;
+    margin-bottom: 3px;
+    /* border-bottom: 2px; */
+}
+
+.app .news1{
+    height: 1px;
+    color: lightgray;
+    background-color: lightgray;
+    width:70%;
+}
 .table{
     display: flex;
     width: 550.5;
     justify-content: center;
-    margin-top: 13.5px;
+    margin-top: 12.5px;
 }
-h3{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px !important;
-    font-weight:lighter;
+
+.input_id{
+    top:0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.input_id Button{
+    margin-top: 12px;
+    background-color: #48BF91;
+    color: white;
+    text-decoration: none;
 }

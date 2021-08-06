@@ -13,7 +13,7 @@ export default function DataGridDemo() {
     <div className="table_style">
       <MaterialTable
         columns={[
-          { title: "SNo.", field: "SNo" },
+          { title: "ID.", field: "SNo" },
           { title: "Name", field: "name" },
           { title: "Votes", field: "vote" },
           // {

@@ -4,16 +4,48 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Table from "./components/Table";
 import Election from "./contracts/Election.json";
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
+
 
 const App = () => {
-  const [refresh, setrefresh] = useState(0);
+  //all the UI 
+  // input value
+  const classes = useStyles();
+  const [age, setAge] = React.useState('');
 
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+  const [refresh, setrefresh] = useState(0);
+  //input value
+
+  //things realted to web3
   let content;
   const [loading2, setloading2] = useState(false);
-
   const [account, setAccount] = useState("");
   const [loading, setLoading] = useState(true);
   const [Hello, setHello] = useState({});
+
+  //states related to electioncontract
+  const [voted, setVoted] = useState(false);
+
+  
 
   const loadWeb3 = async () => {
     if (window.ethereum) {
@@ -93,8 +125,6 @@ const App = () => {
     //esl
   }, [refresh]);
 
-  
-
   if (loading === true) {
     content = (
       <p className="text-center">
@@ -104,11 +134,36 @@ const App = () => {
   } else {
     content = (
       <div className="app">
-          <div className = "table">
-            <Table/>
-          </div>
-          <div><h5>Select a candidate and click the "VOTE" button</h5></div>
-          
+        <div className="table">
+          <Table />
+        </div>
+        <div className="do_vote">
+          <h3>Select a candidate and click the "VOTE" button</h3>
+        </div>
+        <div className="input_id">
+        <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label">Select ID</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          onChange={handleChange}
+        >
+          <MenuItem value={1}>1</MenuItem>
+          <MenuItem value={2}>2</MenuItem>
+          <MenuItem value={3}>3</MenuItem>
+        </Select>
+      </FormControl>
+      <Button variant="contained" onClick={() => { alert(age) }}>VOTE</Button>
+        </div>
+        <div className="after_voting">
+          {voted && (<h6>THANK YOU FOR YOUR VOTE</h6>)}
+        </div>
+        <div className="showinguser_address">
+          <h4>Your Address: {account}</h4>
+        </div>
+        <hr className="news1"/>
+
         {/*<main role="main" class="container">
           <div class="jumbotron">
             <h1>Project</h1>
@@ -144,7 +199,7 @@ const App = () => {
           <button onClick={walletAddress}>metamask</button>
         </div>
       ) : (
-          content
+        content
       )}
       {/* {content} */}
     </div>
