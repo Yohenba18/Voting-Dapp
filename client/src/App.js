@@ -176,6 +176,12 @@ const App = () => {
         <div className="footer">
             <h4>Made by Yohenba Kshetrimayum</h4>
         </div>
+
+        <div className="add_candidate">
+          
+        </div>
+
+
         {/*<main role="main" class="container">
           <div class="jumbotron">
             <h1>Project</h1>
