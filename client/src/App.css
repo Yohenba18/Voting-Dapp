@@ -56,7 +56,7 @@
     margin-top: 12px;
     background-color: #48BF91;
     color: white;
-    text-decoration: none;
+
 }
 .app .lead_title{
     display: flex;
@@ -76,6 +76,31 @@
     position: fixed;
    bottom: 0;
    font-size: 20px;
-
 }
 
+.app .add_candidate{
+    margin-top:30vh;
+    margin-bottom:30vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.app .add_candidate h3 {
+    font-size: 17px;
+}
+
+.app .add_candidate form{
+    display: flex;
+    flex-direction: column;
+}
+.app .add_candidate > button{
+    background-color: #48BF91;
+    color: white;
+    margin-top: 5px;
+}
+
+.app .add_candidate form > TextField{
+    display: flex;
+    margin: 0 5px;
+}

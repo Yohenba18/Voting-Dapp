@@ -4,13 +4,14 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Table from "./components/Table";
 import Election from "./contracts/Election.json";
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
+import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+// import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -22,12 +23,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 const App = () => {
-  //all the UI 
+  //all the UI
   // input value
   const classes = useStyles();
-  const [chooseid, setChooseid] = useState('');
+  const [chooseid, setChooseid] = useState("");
 
   const handleChange = (e) => {
     setChooseid(e.target.value);
@@ -45,8 +45,6 @@ const App = () => {
   //states related to electioncontract
   const [voted, setVoted] = useState(false);
   const [showlead, setShowLead] = useState(false);
-
-  
 
   const loadWeb3 = async () => {
     if (window.ethereum) {
@@ -142,45 +140,74 @@ const App = () => {
           <h3>Select a candidate and click the "VOTE" button</h3>
         </div>
         <div className="input_id">
-        <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Select ID</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={chooseid}
-          onChange={handleChange}
-        >
-          <MenuItem value={1}>1</MenuItem>
-          <MenuItem value={2}>2</MenuItem>
-          <MenuItem value={3}>3</MenuItem>
-        </Select>
-      </FormControl>
-      <Button variant="contained" onClick={() => {setVoted(!voted); alert(chooseid)}}>VOTE</Button>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-simple-select-label">Select ID</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={chooseid}
+              onChange={handleChange}
+            >
+              <MenuItem value={1}>1</MenuItem>
+              <MenuItem value={2}>2</MenuItem>
+              <MenuItem value={3}>3</MenuItem>
+            </Select>
+          </FormControl>
+          <Button
+            variant="contained"
+            onClick={() => {
+              setVoted(!voted);
+              alert(chooseid);
+            }}
+          >
+            VOTE
+          </Button>
         </div>
         <div className="after_voting">
-          {voted && (<h6>THANK YOU FOR YOUR VOTE</h6>)}
+          {voted && <h6>THANK YOU FOR YOUR VOTE</h6>}
         </div>
         <div className="showinguser_address">
           <h4>Your Address: {account}</h4>
         </div>
-        <hr className="news1"/>
+        <hr className="news1" />
         <div className="lead_title">
           <h4>FIND THE LEADING CANDIDATE</h4>
-          <Button variant="contained" onClick={() => {setShowLead(!showlead)}}>LEADING</Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              setShowLead(!showlead);
+            }}
+          >
+            LEADING
+          </Button>
         </div>
-        {showlead &&(<div className="leader_details">
-        <p>Name: Demo Name</p>
-        <p>Votes: Demo Votes</p>
-        </div>)}
-      
+        {showlead && (
+          <div className="leader_details">
+            <p>Name: Demo Name</p>
+            <p>Votes: Demo Votes</p>
+          </div>
+        )}
+
         <div className="footer">
-            <h4>Made by Yohenba Kshetrimayum</h4>
+          <h4>Made by Yohenba Kshetrimayum</h4>
         </div>
 
         <div className="add_candidate">
-          
+          <h3>Enter the details of new candidate:-</h3>
+          <form className="candidate_form">
+            <TextField id="outlined-basic" label="Name" variant="outlined" />
+            <TextField id="outlined-basic" label="Address" variant="outlined" />
+          </form>
+          <Button
+            variant="contained"
+            // onClick={() => {
+            //   setVoted(!voted);
+            //   alert(chooseid);
+            // }}
+          >
+            SUBMIT
+          </Button>
         </div>
-
 
         {/*<main role="main" class="container">
           <div class="jumbotron">
