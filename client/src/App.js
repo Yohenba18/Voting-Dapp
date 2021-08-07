@@ -43,7 +43,7 @@ const App = () => {
   const [Hello, setHello] = useState({});
 
   //states related to electioncontract
-  const [Electioncontract, setElectioncontract] = useState()
+  const [Electioncontract, setElectioncontract] = useState();
   const [contractowner, setContractowner] = useState("");
   const [voted, setVoted] = useState(false);
   const [showlead, setShowLead] = useState(false);
@@ -83,23 +83,23 @@ const App = () => {
       // const hello = new web3.eth.Contract(Helloabi.abi, networkData.address);
       const electionContract = new web3.eth.Contract(
         Election.abi,
-        "0xE6834Bb02493B27E16470AF00a89BB6dCE8a435e"
+        "0x2c2eAe39B950BDa43d5684F235114429F445A480"
       );
-      
+
       setElectioncontract(electionContract);
 
       const owner = await electionContract.methods.contractOwner().call();
       console.log(owner);
       setContractowner(owner);
 
-      var x = await electionContract.methods.candidates_count().call()
+      var x = await electionContract.methods.candidates_count().call();
       var arr = [];
 
-      for(var i = 0; i<x; i++){
+      for (var i = 0; i < x; i++) {
         var a = await electionContract.methods.Candidates(i).call();
-        arr = [...arr, {id:i+1,name:a.name}]
+        arr = [...arr, { id: i + 1, name: a.name }];
       }
-      setCandidates(arr)
+      setCandidates(arr);
 
       setLoading(false);
     } else {
@@ -144,28 +144,35 @@ const App = () => {
     //esl
   }, [refresh]);
 
-  const addCandidate = async() => {
+  const addCandidate = async () => {
     console.log(candidateName, candidateAddress);
 
-    try{
-      await Electioncontract.methods.add_candidate(candidateAddress, candidateName).send({from: account}).then(
-        (a) => {
-          let id = a.events.Regestering_candidate.returnValues.candidate_id
-          let nam = a.events.Regestering_candidate.returnValues.name
-          setCandidates([...Candidates, {id:id, name:nam}])
-        }
-      )
-    }
-    catch(err){
-      if(account == contractowner){window.alert("This action is not allowed because a candidate is already registered on this address");}
-      else{
-        window.alert("Your are not authorised to perform this action")
+    try {
+      await Electioncontract.methods
+        .add_candidate(candidateAddress, candidateName)
+        .send({ from: account })
+        .then((a) => {
+          let id = a.events.Regestering_candidate.returnValues.candidate_id;
+          let nam = a.events.Regestering_candidate.returnValues.name;
+          setCandidates([...Candidates, { id: id, name: nam }]);
+        });
+    } catch (err) {
+      if (account == contractowner) {
+        window.alert(
+          "This action is not allowed because a candidate is already registered on this address"
+        );
+      } else {
+        window.alert("Your are not authorised to perform this action");
       }
-      
     }
-    console.log(Candidates)
+    console.log(Candidates);
     setCandidateName("");
     setCandidateAddress("");
+  };
+
+  const givevote = () => {
+    setVoted(!voted);
+    alert(chooseid);
   };
 
   // const result = contractowner === account;
@@ -180,7 +187,7 @@ const App = () => {
     content = (
       <div className="app">
         <div className="table">
-          <Table />
+          <Table Candidates={Candidates} />
         </div>
         <div className="do_vote">
           <h3>Select a candidate and click the "VOTE" button</h3>
@@ -199,13 +206,7 @@ const App = () => {
               <MenuItem value={3}>3</MenuItem>
             </Select>
           </FormControl>
-          <Button
-            variant="contained"
-            onClick={() => {
-              setVoted(!voted);
-              alert(chooseid);
-            }}
-          >
+          <Button variant="contained" onClick={givevote}>
             VOTE
           </Button>
         </div>
@@ -245,7 +246,7 @@ const App = () => {
               <TextField
                 id="outlined-basic"
                 label="Name"
-                autoComplete='off'
+                autoComplete="off"
                 variant="outlined"
                 value={candidateName}
                 onChange={(e) => setCandidateName(e.target.value)}
@@ -254,7 +255,7 @@ const App = () => {
                 id="outlined-basic"
                 label="Address"
                 variant="outlined"
-                autoComplete='off'
+                autoComplete="off"
                 value={candidateAddress}
                 onChange={(e) => setCandidateAddress(e.target.value)}
               />
@@ -288,7 +289,7 @@ const App = () => {
       </div>
     );
   }
-// result={result} 
+  // result={result}
   return (
     <div>
       <Navbar account={contractowner} />
