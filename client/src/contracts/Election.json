@@ -29,9 +29,9 @@
             "inputs": [
                 {
                     "indexed": false,
-                    "internalType": "address",
-                    "name": "candidate_address",
-                    "type": "address"
+                    "internalType": "uint256",
+                    "name": "candidate_id",
+                    "type": "uint256"
                 },
                 {
                     "indexed": false,
@@ -50,6 +50,12 @@
                     "indexed": false,
                     "internalType": "uint256",
                     "name": "id",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "total_vote",
                     "type": "uint256"
                 }
             ],

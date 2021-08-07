@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar({account}) {
+export default function Navbar({account,result}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -35,11 +35,13 @@ export default function Navbar({account}) {
     setAnchorEl(null);
   };
 
+  // result ? id="#add": alert("Nikal laude");
+
   return (
     <div className={classes.root}>
       <AppBar position="static" style={{backgroundColor:"#5280E2"}}>
         <Toolbar>
-        <Button style={{color: "White"}}>Candidate</Button>
+        <Button style={{color: "White"}} href="#add">Candidate</Button>
           <Typography variant="h6" className={classes.title}>
           Online Voting Booth
           </Typography>

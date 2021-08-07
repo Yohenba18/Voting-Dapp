@@ -31,6 +31,7 @@ export default function DataGridDemo() {
         options={{
           search: false,
           paging: false,
+          sorting: false,
           // selection: true,
           rowStyle: {height: 39.5},
         }}
