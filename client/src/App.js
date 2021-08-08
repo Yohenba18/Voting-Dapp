@@ -12,6 +12,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { set } from "mongoose";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -50,6 +51,7 @@ const App = () => {
   const [Candidates, setCandidates] = useState([]);
   const [candidateAddress, setCandidateAddress] = useState("");
   const [candidateName, setCandidateName] = useState("");
+  const [leading, setLeading] = useState([]);
 
   const loadWeb3 = async () => {
     if (window.ethereum) {
@@ -196,6 +198,19 @@ const App = () => {
     }
   };
 
+  const showLeader = async() => {
+    try {
+      await Electioncontract.methods.leader().send({from: account}).then((a) => {
+        let votes = a.events.Leader.returnValues.highest_votes
+        let name = a.events.Leader.returnValues.name
+        setLeading({name: name, votes: votes});
+        setShowLead(!showlead);
+      })
+      setShowLead(!showlead);
+    } catch (err) {
+      window.alert("Something went wrong");
+    }
+  };
   // const result = contractowner === account;
 
   // const generateMenuItem = () => {
@@ -232,16 +247,18 @@ const App = () => {
               value={chooseid}
               onChange={handleChange}
             >
-              {Candidates.length !== 0 ? (
-                Candidates.map((candidate) => 
+              {
+                Candidates.length !== 0 ? (
+                  Candidates.map((candidate) => (
                     <MenuItem key={candidate.name} value={candidate.id}>
                       {candidate.id}
                     </MenuItem>
-                )) :
-                (<MenuItem value={0}>No candidate</MenuItem>)
+                  ))
+                ) : (
+                  <MenuItem value={0}>No candidate</MenuItem>
+                )
                 // generateMenuItem()
               }
-
             </Select>
           </FormControl>
           <Button variant="contained" onClick={givevote}>
@@ -257,19 +274,14 @@ const App = () => {
         <hr className="news1" />
         <div className="lead_title">
           <h4>FIND THE LEADING CANDIDATE</h4>
-          <Button
-            variant="contained"
-            onClick={() => {
-              setShowLead(!showlead);
-            }}
-          >
+          <Button variant="contained" onClick={showLeader}>
             LEADING
           </Button>
         </div>
         {showlead && (
           <div className="leader_details">
-            <p>Name: Demo Name</p>
-            <p>Votes: Demo Votes</p>
+            <p>Name: {leading.name}</p>
+            <p>Votes: {leading.votes}</p>
           </div>
         )}
 
@@ -324,7 +336,7 @@ const App = () => {
             </div>
           </div>
     </main>*/}
-                  {/*<MenuItem value={1}>1</MenuItem>
+        {/*<MenuItem value={1}>1</MenuItem>
               <MenuItem value={2}>2</MenuItem>
           <MenuItem value={3}>3</MenuItem>*/}
       </div>
