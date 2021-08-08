@@ -83,7 +83,7 @@ const App = () => {
       // const hello = new web3.eth.Contract(Helloabi.abi, networkData.address);
       const electionContract = new web3.eth.Contract(
         Election.abi,
-        "0xE27D3712a3B5aaEE592c599a7EE97b53036eC673"
+        "0x08dADb1EC560cE0c3665Da6b46AEF3167445A989"
       );
 
       setElectioncontract(electionContract);
@@ -96,9 +96,15 @@ const App = () => {
       var arr = [];
 
       for (var i = 0; i < x; i++) {
-        await electionContract.methods.Candidates(i).call().then((candidate => {
-          arr = [...arr, { id: i + 1, name: candidate[0], votes: candidate[1]}];
-        }))
+        await electionContract.methods
+          .Candidates(i)
+          .call()
+          .then((candidate) => {
+            arr = [
+              ...arr,
+              { id: i + 1, name: candidate[0], votes: candidate[1] },
+            ];
+          });
         // var a = await electionContract.methods.Candidates(i).call();
         // arr = [...arr, { id: i + 1, name: a.name , votes: a.total_vote}];
       }
@@ -158,7 +164,7 @@ const App = () => {
           let id = a.events.Regestering_candidate.returnValues.candidate_id;
           let nam = a.events.Regestering_candidate.returnValues.name;
           let vot = a.events.Regestering_candidate.returnValues.total_vote;
-          setCandidates([...Candidates, { id: id, name: nam , votes: 0}]);
+          setCandidates([...Candidates, { id: id, name: nam, votes: 0 }]);
         });
     } catch (err) {
       if (account == contractowner) {
@@ -174,12 +180,33 @@ const App = () => {
     setCandidateAddress("");
   };
 
-  const givevote = () => {
-    setVoted(!voted);
-    alert(chooseid);
+  const givevote = async () => {
+    try {
+      let ChoiceId = chooseid - 1;
+      await Electioncontract.methods
+        .add_vote(ChoiceId)
+        .send({ from: account })
+        .then((a) => {
+          let id_returned = a.events.Voted.returnValues.id;
+          console.log(id_returned);
+        });
+      setVoted(!voted);
+    } catch (err) {
+      window.alert("You have already voted");
+    }
   };
 
   // const result = contractowner === account;
+
+  // const generateMenuItem = () => {
+  //   let x = Candidates.length;
+  //   for (var i = 0; i < x; i++) {
+  //     <MenuItem value={Candidates[i].id + 1}>{Candidates[i].id + 1}</MenuItem>;
+  //   }
+  //   // Candidates.map(candidate => {
+  //   //   return <MenuItem key={candidate.name} value={candidate.id+1}>{candidate.id+1}</MenuItem>
+  //   // })
+  // };
 
   if (loading === true) {
     content = (
@@ -205,9 +232,16 @@ const App = () => {
               value={chooseid}
               onChange={handleChange}
             >
-              <MenuItem value={1}>1</MenuItem>
-              <MenuItem value={2}>2</MenuItem>
-              <MenuItem value={3}>3</MenuItem>
+              {Candidates.length !== 0 ? (
+                Candidates.map((candidate) => 
+                    <MenuItem key={candidate.name} value={candidate.id}>
+                      {candidate.id}
+                    </MenuItem>
+                )) :
+                (<MenuItem value={0}>No candidate</MenuItem>)
+                // generateMenuItem()
+              }
+
             </Select>
           </FormControl>
           <Button variant="contained" onClick={givevote}>
@@ -290,6 +324,9 @@ const App = () => {
             </div>
           </div>
     </main>*/}
+                  {/*<MenuItem value={1}>1</MenuItem>
+              <MenuItem value={2}>2</MenuItem>
+          <MenuItem value={3}>3</MenuItem>*/}
       </div>
     );
   }
