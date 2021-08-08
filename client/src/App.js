@@ -96,8 +96,11 @@ const App = () => {
       var arr = [];
 
       for (var i = 0; i < x; i++) {
-        var a = await electionContract.methods.Candidates(i).call();
-        arr = [...arr, { id: i + 1, name: a.name , votes: a.total_vote}];
+        await electionContract.methods.Candidates(i).call().then((candidate => {
+          arr = [...arr, { id: i + 1, name: candidate[0], votes: candidate[1]}];
+        }))
+        // var a = await electionContract.methods.Candidates(i).call();
+        // arr = [...arr, { id: i + 1, name: a.name , votes: a.total_vote}];
       }
       setCandidates(arr);
 
@@ -155,7 +158,7 @@ const App = () => {
           let id = a.events.Regestering_candidate.returnValues.candidate_id;
           let nam = a.events.Regestering_candidate.returnValues.name;
           let vot = a.events.Regestering_candidate.returnValues.total_vote;
-          setCandidates([...Candidates, { id: id, name: nam , votes: vot}]);
+          setCandidates([...Candidates, { id: id, name: nam , votes: 0}]);
         });
     } catch (err) {
       if (account == contractowner) {

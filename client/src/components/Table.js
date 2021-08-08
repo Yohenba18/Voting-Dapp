@@ -20,7 +20,7 @@ export default function Table({ Candidates }) {
         columns={[
           { title: "ID.", field: "id" },
           { title: "Name", field: "name" },
-          { title: "Votes", field: "vote" },
+          { title: "Votes", field: "votes" },
           // {
           //   cellStyle: {
           //     height: 50.5
