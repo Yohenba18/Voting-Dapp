@@ -83,7 +83,7 @@ const App = () => {
       // const hello = new web3.eth.Contract(Helloabi.abi, networkData.address);
       const electionContract = new web3.eth.Contract(
         Election.abi,
-        "0x2c2eAe39B950BDa43d5684F235114429F445A480"
+        "0xE27D3712a3B5aaEE592c599a7EE97b53036eC673"
       );
 
       setElectioncontract(electionContract);
@@ -97,7 +97,7 @@ const App = () => {
 
       for (var i = 0; i < x; i++) {
         var a = await electionContract.methods.Candidates(i).call();
-        arr = [...arr, { id: i + 1, name: a.name }];
+        arr = [...arr, { id: i + 1, name: a.name , votes: a.total_vote}];
       }
       setCandidates(arr);
 
@@ -154,7 +154,8 @@ const App = () => {
         .then((a) => {
           let id = a.events.Regestering_candidate.returnValues.candidate_id;
           let nam = a.events.Regestering_candidate.returnValues.name;
-          setCandidates([...Candidates, { id: id, name: nam }]);
+          let vot = a.events.Regestering_candidate.returnValues.total_vote;
+          setCandidates([...Candidates, { id: id, name: nam , votes: vot}]);
         });
     } catch (err) {
       if (account == contractowner) {

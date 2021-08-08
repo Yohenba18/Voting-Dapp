@@ -1,5 +1,5 @@
 {
-    "abi": [
+    "abi" : [
         {
             "inputs": [],
             "stateMutability": "nonpayable",
@@ -38,6 +38,12 @@
                     "internalType": "string",
                     "name": "name",
                     "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "total_vote",
+                    "type": "uint256"
                 }
             ],
             "name": "Regestering_candidate",
@@ -50,12 +56,6 @@
                     "indexed": false,
                     "internalType": "uint256",
                     "name": "id",
-                    "type": "uint256"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "uint256",
-                    "name": "total_vote",
                     "type": "uint256"
                 }
             ],
