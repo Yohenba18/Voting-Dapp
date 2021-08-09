@@ -85,7 +85,7 @@ const App = () => {
       // const hello = new web3.eth.Contract(Helloabi.abi, networkData.address);
       const electionContract = new web3.eth.Contract(
         Election.abi,
-        "0xd79D4CeaEE14bd5f0dD503e795586d1f212B3228"
+        "0xAd018C7D9ed0332059E31CceDd904455D93f0547"
       );
 
       setElectioncontract(electionContract);
