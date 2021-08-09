@@ -11,13 +11,13 @@ Bringing blockchain into voting will help remove these frauds and make voting mo
 3. Solidity
 4. Web3
 
-Features of this application:-
+# Features of this application:-
 
 1. Owner of the contract can register candidates with there name and address
 2. Voters can vote for the candidate using there addresses
 3. 1 voter can give vote only once
 4. Leading candidates details can be viewed
 
-App Screenshot
+# App Screenshot
 
 ![](ss.png)
