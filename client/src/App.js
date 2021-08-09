@@ -91,8 +91,12 @@ const App = () => {
       // const hello = new web3.eth.Contract(Helloabi.abi, networkData.address);
       const electionContract = new web3.eth.Contract(
         Election.abi,
+// <<<<<<< HEAD
         networkData && networkData.address
         // "0x0b461BE07E83e4636b31e78A444E311d64Ec12D4"
+// =======
+//         "0xAd018C7D9ed0332059E31CceDd904455D93f0547"
+// >>>>>>> eefb54431998af836f897c27ae969f63fdb9e13b
       );
 
       setElectioncontract(electionContract);
