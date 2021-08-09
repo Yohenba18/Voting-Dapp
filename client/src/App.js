@@ -53,39 +53,46 @@ const App = () => {
   const [candidateName, setCandidateName] = useState("");
   const [leading, setLeading] = useState([]);
 
-  const loadWeb3 = async () => {
-    if (window.ethereum) {
-      await window.ethereum.enable();
-    } else {
-      window.alert(
-        "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      );
+  const loadWeb3 = async () =>{
+    if (window.ethereum){
+    window.web3 = new Web3(window.ethereum)
+    await window.ethereum.enable()
+    } else if (window.web3){
+      window.web3 = new Web3(window.web3.currentProvider)
+    } else{
+      window.alert("Non Ethereum Browser Detected")
     }
-  };
+  }
 
   const loadBlockchainData = async () => {
     setLoading(true);
     if (typeof window.ethereum == "undefined") {
       return;
     }
-    const web3 = new Web3(window.ethereum);
-
-    let url = window.location.href;
-    console.log(url);
-
+    const web3 = window.web3;
     const accounts = await web3.eth.getAccounts();
+    setAccount(accounts[0])
+    // const web3 = new Web3(window.ethereum);
 
-    if (accounts.length == 0) {
-      return;
-    }
-    setAccount(accounts[0]);
+    // let url = window.location.href;
+    // console.log(url);
+
+    // const accounts = await web3.eth.getAccounts();
+
+    // if (accounts.length == 0) {
+    //   return;
+    // }
+    // setAccount(accounts[0]);
     const networkId = await web3.eth.net.getId();
+    const networkData = Election.abi.networks[networkId];
+    console.log(networkId, networkData)
 
-    if (networkId == 42) {
+    if(networkData){
       // const hello = new web3.eth.Contract(Helloabi.abi, networkData.address);
       const electionContract = new web3.eth.Contract(
         Election.abi,
-        "0x0b461BE07E83e4636b31e78A444E311d64Ec12D4"
+        networkData && networkData.address
+        // "0x0b461BE07E83e4636b31e78A444E311d64Ec12D4"
       );
 
       setElectioncontract(electionContract);
