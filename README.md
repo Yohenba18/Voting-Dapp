@@ -30,3 +30,4 @@ Bringing blockchain into voting will help remove these frauds and make voting mo
 5. Then you'll see, metamask will ask your permission to connect all the 10 accounts to the webapp.
 6. Initially only the first account would be connected. Click on add account, then the second account would be added, then third and so on.
 
+## For Truffle configured application checkout the "newbranch" above 
