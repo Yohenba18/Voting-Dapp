@@ -30,3 +30,23 @@ Bringing blockchain into voting will help remove these frauds and make voting mo
 5. Then you'll see, metamask will ask your permission to connect all the 10 accounts to the webapp.
 6. Initially only the first account would be connected. Click on add account, then the second account would be added, then third and so on.
 
+# Setting up the local development environment
+
+```
+git clone https://github.com/Yohenba18/Voting-Dapp.git
+
+npm install
+
+truffle compile
+
+truffle migrate (or truffle migrate --reset)
+
+cd client
+
+npm install
+
+npm start
+```
+
+(truffle migrate if using for the first time. truffle migrate --reset for everytime you want to create a new contract instance and wipe out the old data.)
+(For running the application anytime afterwards, just start the Ganache workspace created and go to the client folder and npm start)
