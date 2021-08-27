@@ -35,6 +35,8 @@ Bringing blockchain into voting will help remove these frauds and make voting mo
 ```
 git clone https://github.com/Yohenba18/Voting-Dapp.git
 
+git pull origin newbranch
+
 npm install
 
 truffle compile
